@@ -1,0 +1,21 @@
+sudo: required
+
+services:
+- docker
+
+language: bash
+
+branches:
+  only:
+  - master
+
+script:
+  - docker build -t yhak/CraftCMS .
+
+after_success:
+- >
+  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    docker tag yhak/CraftCMS yhak/CraftCMS:latest
+    docker push yhak/CraftCMS
+  fi
