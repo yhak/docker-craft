@@ -10,12 +10,12 @@ branches:
   - master
 
 script:
-  - docker build -t yhak/CraftCMS .
+  - docker build -t yhak/craftcms .
 
 after_success:
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    docker tag yhak/CraftCMS yhak/craftcms:latest
-    docker push yhak/CraftCMS
+    docker tag yhak/craftcms yhak/craftcms:latest
+    docker push yhak/craftcms
   fi
