@@ -1,0 +1,25 @@
+version: '2'
+services:
+  craft:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+     - 8080:80
+    depends_on:
+    - database
+    environment:
+      DB_DRIVER: mysql
+      DB_SERVER: database
+      DB_USER: craft
+      DB_PASSWORD: craft
+      DB_DATABASE: craft
+      DB_SCHEMA: public
+      DB_TABLE_PREFIX:
+  database:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: craft
+      MYSQL_USER: craft
+      MYSQL_PASSWORD: craft
+      MYSQL_DATABASE: craft
